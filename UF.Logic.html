@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><title>UF.Logic</title><link rel="stylesheet" href="Agda.css"></head><body><pre class="Agda"><a id="1" class="Background">Ayberk Tosun, 10 March 2021.
+
+Based in part by the `Cubical.Functions.Logic` module UF.of
+`agda/cubical`.
+
+</a><a id="108" class="Markup">\begin{code}</a>
+
+<a id="122" class="Symbol">{-#</a> <a id="126" class="Keyword">OPTIONS</a> <a id="134" class="Pragma">--without-K</a> <a id="146" class="Pragma">--exact-split</a> <a id="160" class="Pragma">--safe</a> <a id="167" class="Pragma">--auto-inline</a> <a id="181" class="Symbol">#-}</a>
+
+<a id="186" class="Keyword">module</a> <a id="193" href="UF.Logic.html" class="Module">UF.Logic</a> <a id="202" class="Keyword">where</a>
+
+<a id="209" class="Keyword">open</a> <a id="214" class="Keyword">import</a> <a id="221" href="MLTT.Spartan.html" class="Module">MLTT.Spartan</a>
+<a id="234" class="Keyword">open</a> <a id="239" class="Keyword">import</a> <a id="246" href="UF.Subsingletons.html" class="Module">UF.Subsingletons</a>
+<a id="263" class="Keyword">open</a> <a id="268" class="Keyword">import</a> <a id="275" href="UF.PropTrunc.html" class="Module">UF.PropTrunc</a>
+<a id="288" class="Keyword">open</a> <a id="293" class="Keyword">import</a> <a id="300" href="UF.FunExt.html" class="Module">UF.FunExt</a>
+<a id="310" class="Keyword">open</a> <a id="315" class="Keyword">import</a> <a id="322" href="UF.Subsingletons-FunExt.html" class="Module">UF.Subsingletons-FunExt</a>
+
+<a id="347" class="Markup">\end{code}</a><a id="357" class="Background">
+
+\section{Conjunction}
+
+</a><a id="382" class="Markup">\begin{code}</a>
+
+<a id="396" class="Keyword">module</a> <a id="Conjunction"></a><a id="403" href="UF.Logic.html#403" class="Module">Conjunction</a> <a id="415" class="Keyword">where</a>
+
+ <a id="Conjunction._∧_"></a><a id="423" href="UF.Logic.html#423" class="Function Operator">_∧_</a> <a id="427" class="Symbol">:</a> <a id="429" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="431" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="433" class="Symbol">→</a> <a id="435" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="437" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a> <a id="439" class="Symbol">→</a> <a id="441" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="443" class="Symbol">(</a><a id="444" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="446" href="Agda.Primitive.html#810" class="Primitive Operator">⊔</a> <a id="448" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a><a id="449" class="Symbol">)</a>
+ <a id="452" href="UF.Logic.html#452" class="Bound">P</a> <a id="454" href="UF.Logic.html#423" class="Function Operator">∧</a> <a id="456" href="UF.Logic.html#456" class="Bound">Q</a> <a id="458" class="Symbol">=</a> <a id="460" class="Symbol">(</a><a id="461" href="UF.Logic.html#452" class="Bound">P</a> <a id="463" href="UF.Subsingletons.html#18951" class="Function Operator">holds</a> <a id="469" href="MLTT.Sigma.html#586" class="Function Operator">×</a> <a id="471" href="UF.Logic.html#456" class="Bound">Q</a> <a id="473" href="UF.Subsingletons.html#18951" class="Function Operator">holds</a><a id="478" class="Symbol">)</a> <a id="480" href="MLTT.Sigma.html#423" class="InductiveConstructor Operator">,</a> <a id="482" href="UF.Logic.html#495" class="Function">γ</a>
+  <a id="486" class="Keyword">where</a>
+   <a id="495" href="UF.Logic.html#495" class="Function">γ</a> <a id="497" class="Symbol">=</a> <a id="499" href="UF.Subsingletons.html#10472" class="Function">×-is-prop</a> <a id="509" class="Symbol">(</a><a id="510" href="UF.Subsingletons.html#18990" class="Function">holds-is-prop</a> <a id="524" href="UF.Logic.html#452" class="Bound">P</a><a id="525" class="Symbol">)</a> <a id="527" class="Symbol">(</a><a id="528" href="UF.Subsingletons.html#18990" class="Function">holds-is-prop</a> <a id="542" href="UF.Logic.html#456" class="Bound">Q</a><a id="543" class="Symbol">)</a>
+
+ <a id="547" class="Keyword">infixr</a> <a id="554" class="Number">4</a> <a id="556" href="UF.Logic.html#423" class="Function Operator">_∧_</a>
+
+<a id="561" class="Markup">\end{code}</a><a id="571" class="Background">
+
+\section{Universal quantification}
+
+</a><a id="609" class="Markup">\begin{code}</a>
+
+<a id="623" class="Keyword">module</a> <a id="Universal"></a><a id="630" href="UF.Logic.html#630" class="Module">Universal</a> <a id="640" class="Symbol">(</a><a id="641" href="UF.Logic.html#641" class="Bound">fe</a> <a id="644" class="Symbol">:</a> <a id="646" href="UF.FunExt.html#1036" class="Function">Fun-Ext</a><a id="653" class="Symbol">)</a> <a id="655" class="Keyword">where</a>
+
+ <a id="Universal.∀[∶]-syntax"></a><a id="663" href="UF.Logic.html#663" class="Function">∀[∶]-syntax</a> <a id="675" class="Symbol">:</a> <a id="677" class="Symbol">(</a><a id="678" href="UF.Logic.html#678" class="Bound">I</a> <a id="680" class="Symbol">:</a> <a id="682" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="684" href="MLTT.Universes.html#422" class="Function Operator">̇</a><a id="685" class="Symbol">)</a> <a id="687" class="Symbol">→</a> <a id="689" class="Symbol">(</a><a id="690" href="UF.Logic.html#678" class="Bound">I</a> <a id="692" class="Symbol">→</a> <a id="694" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="696" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a><a id="697" class="Symbol">)</a> <a id="699" class="Symbol">→</a> <a id="701" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="703" class="Symbol">(</a><a id="704" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="706" href="Agda.Primitive.html#810" class="Primitive Operator">⊔</a> <a id="708" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a><a id="709" class="Symbol">)</a>
+ <a id="712" href="UF.Logic.html#663" class="Function">∀[∶]-syntax</a> <a id="724" href="UF.Logic.html#724" class="Bound">I</a> <a id="726" href="UF.Logic.html#726" class="Bound">P</a> <a id="728" class="Symbol">=</a> <a id="730" class="Symbol">((</a><a id="732" href="UF.Logic.html#732" class="Bound">i</a> <a id="734" class="Symbol">:</a> <a id="736" href="UF.Logic.html#724" class="Bound">I</a><a id="737" class="Symbol">)</a> <a id="739" class="Symbol">→</a> <a id="741" href="UF.Logic.html#726" class="Bound">P</a> <a id="743" href="UF.Logic.html#732" class="Bound">i</a> <a id="745" href="UF.Subsingletons.html#18951" class="Function Operator">holds</a><a id="750" class="Symbol">)</a> <a id="752" href="MLTT.Sigma.html#423" class="InductiveConstructor Operator">,</a> <a id="754" href="UF.Logic.html#767" class="Function">γ</a>
+  <a id="758" class="Keyword">where</a>
+   <a id="767" href="UF.Logic.html#767" class="Function">γ</a> <a id="769" class="Symbol">:</a> <a id="771" href="UF.Subsingletons.html#498" class="Function">is-prop</a> <a id="779" class="Symbol">((</a><a id="781" href="UF.Logic.html#781" class="Bound">i</a> <a id="783" class="Symbol">:</a> <a id="785" href="UF.Logic.html#724" class="Bound">I</a><a id="786" class="Symbol">)</a> <a id="788" class="Symbol">→</a> <a id="790" href="UF.Logic.html#726" class="Bound">P</a> <a id="792" href="UF.Logic.html#781" class="Bound">i</a> <a id="794" href="UF.Subsingletons.html#18951" class="Function Operator">holds</a><a id="799" class="Symbol">)</a>
+   <a id="804" href="UF.Logic.html#767" class="Function">γ</a> <a id="806" class="Symbol">=</a> <a id="808" href="UF.Subsingletons-FunExt.html#648" class="Function">Π-is-prop</a> <a id="818" href="UF.Logic.html#641" class="Bound">fe</a> <a id="821" class="Symbol">(</a><a id="822" href="UF.Subsingletons.html#18990" class="Function">holds-is-prop</a> <a id="836" href="MLTT.Pi.html#541" class="Function Operator">∘</a> <a id="838" href="UF.Logic.html#726" class="Bound">P</a><a id="839" class="Symbol">)</a>
+
+
+ <a id="Universal.∀[]-syntax"></a><a id="844" href="UF.Logic.html#844" class="Function">∀[]-syntax</a> <a id="855" class="Symbol">:</a> <a id="857" class="Symbol">{</a><a id="858" href="UF.Logic.html#858" class="Bound">I</a> <a id="860" class="Symbol">:</a> <a id="862" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="864" href="MLTT.Universes.html#422" class="Function Operator">̇</a><a id="865" class="Symbol">}</a> <a id="867" class="Symbol">→</a> <a id="869" class="Symbol">(</a><a id="870" href="UF.Logic.html#858" class="Bound">I</a> <a id="872" class="Symbol">→</a> <a id="874" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="876" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a><a id="877" class="Symbol">)</a> <a id="879" class="Symbol">→</a> <a id="881" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="883" class="Symbol">(</a><a id="884" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="886" href="Agda.Primitive.html#810" class="Primitive Operator">⊔</a> <a id="888" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a><a id="889" class="Symbol">)</a>
+ <a id="892" href="UF.Logic.html#844" class="Function">∀[]-syntax</a> <a id="903" class="Symbol">{</a><a id="904" class="Argument">I</a> <a id="906" class="Symbol">=</a> <a id="908" href="UF.Logic.html#908" class="Bound">I</a><a id="909" class="Symbol">}</a> <a id="911" href="UF.Logic.html#911" class="Bound">P</a> <a id="913" class="Symbol">=</a> <a id="915" href="UF.Logic.html#663" class="Function">∀[∶]-syntax</a> <a id="927" href="UF.Logic.html#908" class="Bound">I</a> <a id="929" href="UF.Logic.html#911" class="Bound">P</a>
+
+ <a id="933" class="Keyword">infixr</a> <a id="940" class="Number">-1</a> <a id="943" href="UF.Logic.html#663" class="Function">∀[∶]-syntax</a>
+ <a id="956" class="Keyword">infixr</a> <a id="963" class="Number">-1</a> <a id="966" href="UF.Logic.html#844" class="Function">∀[]-syntax</a>
+
+ <a id="979" class="Keyword">syntax</a> <a id="986" href="UF.Logic.html#663" class="Function">∀[∶]-syntax</a> <a id="998" class="Bound">I</a> <a id="1000" class="Symbol">(λ</a> <a id="1003" class="Bound">i</a> <a id="1005" class="Symbol">→</a> <a id="1007" class="Bound">e</a><a id="1008" class="Symbol">)</a> <a id="1010" class="Symbol">=</a> <a id="1012" class="Function">Ɐ</a> <a id="1014" class="Bound">i</a> <a id="1016" class="Function">∶</a> <a id="1018" class="Bound">I</a> <a id="1020" class="Function">,</a> <a id="1022" class="Bound">e</a>
+ <a id="1025" class="Keyword">syntax</a> <a id="1032" href="UF.Logic.html#844" class="Function">∀[]-syntax</a>    <a id="1046" class="Symbol">(λ</a> <a id="1049" class="Bound">i</a> <a id="1051" class="Symbol">→</a> <a id="1053" class="Bound">e</a><a id="1054" class="Symbol">)</a> <a id="1056" class="Symbol">=</a> <a id="1058" class="Function">Ɐ</a> <a id="1060" class="Bound">i</a> <a id="1062" class="Function">,</a> <a id="1064" class="Bound">e</a>
+
+<a id="1067" class="Markup">\end{code}</a><a id="1077" class="Background">
+
+\section{Implication}
+
+</a><a id="1102" class="Markup">\begin{code}</a>
+
+<a id="1116" class="Keyword">module</a> <a id="Implication"></a><a id="1123" href="UF.Logic.html#1123" class="Module">Implication</a> <a id="1135" class="Symbol">(</a><a id="1136" href="UF.Logic.html#1136" class="Bound">fe</a> <a id="1139" class="Symbol">:</a> <a id="1141" href="UF.FunExt.html#1036" class="Function">Fun-Ext</a><a id="1148" class="Symbol">)</a> <a id="1150" class="Keyword">where</a>
+
+ <a id="1158" class="Keyword">open</a> <a id="1163" href="UF.Logic.html#630" class="Module">Universal</a> <a id="1173" href="UF.Logic.html#1136" class="Bound">fe</a>
+
+ <a id="1178" class="Keyword">infixr</a> <a id="1185" class="Number">3</a> <a id="1187" href="UF.Logic.html#1193" class="Function Operator">_⇒_</a>
+
+ <a id="Implication._⇒_"></a><a id="1193" href="UF.Logic.html#1193" class="Function Operator">_⇒_</a> <a id="1197" class="Symbol">:</a> <a id="1199" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="1201" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="1203" class="Symbol">→</a> <a id="1205" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="1207" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a> <a id="1209" class="Symbol">→</a> <a id="1211" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="1213" class="Symbol">(</a><a id="1214" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="1216" href="Agda.Primitive.html#810" class="Primitive Operator">⊔</a> <a id="1218" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a><a id="1219" class="Symbol">)</a>
+ <a id="1222" href="UF.Logic.html#1222" class="Bound">P</a> <a id="1224" href="UF.Logic.html#1193" class="Function Operator">⇒</a> <a id="1226" href="UF.Logic.html#1226" class="Bound">Q</a> <a id="1228" class="Symbol">=</a> <a id="1230" class="Symbol">(</a><a id="1231" href="UF.Logic.html#1222" class="Bound">P</a> <a id="1233" href="UF.Subsingletons.html#18951" class="Function Operator">holds</a> <a id="1239" class="Symbol">→</a> <a id="1241" href="UF.Logic.html#1226" class="Bound">Q</a> <a id="1243" href="UF.Subsingletons.html#18951" class="Function Operator">holds</a><a id="1248" class="Symbol">)</a> <a id="1250" href="MLTT.Sigma.html#423" class="InductiveConstructor Operator">,</a> <a id="1252" href="UF.Logic.html#1265" class="Function">γ</a>
+  <a id="1256" class="Keyword">where</a>
+   <a id="1265" href="UF.Logic.html#1265" class="Function">γ</a> <a id="1267" class="Symbol">:</a> <a id="1269" href="UF.Subsingletons.html#498" class="Function">is-prop</a> <a id="1277" class="Symbol">(</a><a id="1278" href="UF.Logic.html#1222" class="Bound">P</a> <a id="1280" href="UF.Subsingletons.html#18951" class="Function Operator">holds</a> <a id="1286" class="Symbol">→</a> <a id="1288" href="UF.Logic.html#1226" class="Bound">Q</a> <a id="1290" href="UF.Subsingletons.html#18951" class="Function Operator">holds</a><a id="1295" class="Symbol">)</a>
+   <a id="1300" href="UF.Logic.html#1265" class="Function">γ</a> <a id="1302" class="Symbol">=</a> <a id="1304" href="UF.Subsingletons-FunExt.html#648" class="Function">Π-is-prop</a> <a id="1314" href="UF.Logic.html#1136" class="Bound">fe</a> <a id="1317" class="Symbol">λ</a> <a id="1319" href="UF.Logic.html#1319" class="Bound">_</a> <a id="1321" class="Symbol">→</a> <a id="1323" href="UF.Subsingletons.html#18990" class="Function">holds-is-prop</a> <a id="1337" href="UF.Logic.html#1226" class="Bound">Q</a>
+
+ <a id="1341" class="Keyword">open</a> <a id="1346" href="UF.Logic.html#403" class="Module">Conjunction</a>
+
+ <a id="Implication._↔_"></a><a id="1360" href="UF.Logic.html#1360" class="Function Operator">_↔_</a> <a id="1364" class="Symbol">:</a> <a id="1366" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="1368" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="1370" class="Symbol">→</a> <a id="1372" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="1374" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a> <a id="1376" class="Symbol">→</a> <a id="1378" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="1380" class="Symbol">(</a><a id="1381" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="1383" href="Agda.Primitive.html#810" class="Primitive Operator">⊔</a> <a id="1385" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a><a id="1386" class="Symbol">)</a>
+ <a id="1389" href="UF.Logic.html#1389" class="Bound">P</a> <a id="1391" href="UF.Logic.html#1360" class="Function Operator">↔</a> <a id="1393" href="UF.Logic.html#1393" class="Bound">Q</a> <a id="1395" class="Symbol">=</a> <a id="1397" class="Symbol">(</a><a id="1398" href="UF.Logic.html#1389" class="Bound">P</a> <a id="1400" href="UF.Logic.html#1193" class="Function Operator">⇒</a> <a id="1402" href="UF.Logic.html#1393" class="Bound">Q</a><a id="1403" class="Symbol">)</a> <a id="1405" href="UF.Logic.html#423" class="Function Operator">∧</a> <a id="1407" class="Symbol">(</a><a id="1408" href="UF.Logic.html#1393" class="Bound">Q</a> <a id="1410" href="UF.Logic.html#1193" class="Function Operator">⇒</a> <a id="1412" href="UF.Logic.html#1389" class="Bound">P</a><a id="1413" class="Symbol">)</a>
+
+ <a id="1417" class="Keyword">infixr</a> <a id="1424" class="Number">3</a> <a id="1426" href="UF.Logic.html#1360" class="Function Operator">_↔_</a>
+
+<a id="1431" class="Markup">\end{code}</a><a id="1441" class="Background">
+
+\section{Disjunction}
+
+</a><a id="1466" class="Markup">\begin{code}</a>
+
+<a id="1480" class="Keyword">module</a> <a id="Disjunction"></a><a id="1487" href="UF.Logic.html#1487" class="Module">Disjunction</a> <a id="1499" class="Symbol">(</a><a id="1500" href="UF.Logic.html#1500" class="Bound">pt</a> <a id="1503" class="Symbol">:</a> <a id="1505" href="UF.PropTrunc.html#514" class="Record">propositional-truncations-exist</a><a id="1536" class="Symbol">)</a> <a id="1538" class="Keyword">where</a>
+
+ <a id="1546" class="Keyword">open</a> <a id="1551" href="UF.PropTrunc.html#514" class="Module">propositional-truncations-exist</a> <a id="1583" href="UF.Logic.html#1500" class="Bound">pt</a>
+
+ <a id="Disjunction._∨_"></a><a id="1588" href="UF.Logic.html#1588" class="Function Operator">_∨_</a> <a id="1592" class="Symbol">:</a> <a id="1594" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="1596" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="1598" class="Symbol">→</a> <a id="1600" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="1602" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a> <a id="1604" class="Symbol">→</a> <a id="1606" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="1608" class="Symbol">(</a><a id="1609" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="1611" href="Agda.Primitive.html#810" class="Primitive Operator">⊔</a> <a id="1613" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a><a id="1614" class="Symbol">)</a>
+ <a id="1617" href="UF.Logic.html#1617" class="Bound">P</a> <a id="1619" href="UF.Logic.html#1588" class="Function Operator">∨</a> <a id="1621" href="UF.Logic.html#1621" class="Bound">Q</a> <a id="1623" class="Symbol">=</a> <a id="1625" href="UF.PropTrunc.html#566" class="Field Operator">∥</a> <a id="1627" href="UF.Logic.html#1617" class="Bound">P</a> <a id="1629" href="UF.Subsingletons.html#18951" class="Function Operator">holds</a> <a id="1635" href="MLTT.Plus-Type.html#148" class="Datatype Operator">+</a> <a id="1637" href="UF.Logic.html#1621" class="Bound">Q</a> <a id="1639" href="UF.Subsingletons.html#18951" class="Function Operator">holds</a> <a id="1645" href="UF.PropTrunc.html#566" class="Field Operator">∥</a> <a id="1647" href="MLTT.Sigma.html#423" class="InductiveConstructor Operator">,</a> <a id="1649" href="UF.PropTrunc.html#601" class="Field">∥∥-is-prop</a>
+
+ <a id="1662" class="Keyword">infix</a> <a id="1668" class="Number">3</a> <a id="1670" href="UF.Logic.html#1588" class="Function Operator">_∨_</a>
+
+<a id="1675" class="Markup">\end{code}</a><a id="1685" class="Background">
+
+\section{Truncation}
+
+</a><a id="1709" class="Markup">\begin{code}</a>
+<a id="1722" class="Keyword">module</a> <a id="Truncation"></a><a id="1729" href="UF.Logic.html#1729" class="Module">Truncation</a> <a id="1740" class="Symbol">(</a><a id="1741" href="UF.Logic.html#1741" class="Bound">pt</a> <a id="1744" class="Symbol">:</a> <a id="1746" href="UF.PropTrunc.html#514" class="Record">propositional-truncations-exist</a><a id="1777" class="Symbol">)</a> <a id="1779" class="Keyword">where</a>
+
+  <a id="1788" class="Keyword">open</a> <a id="1793" href="UF.PropTrunc.html#820" class="Module">PropositionalTruncation</a> <a id="1817" href="UF.Logic.html#1741" class="Bound">pt</a>
+
+  <a id="Truncation.∥_∥Ω"></a><a id="1823" href="UF.Logic.html#1823" class="Function Operator">∥_∥Ω</a> <a id="1828" class="Symbol">:</a> <a id="1830" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="1832" href="MLTT.Universes.html#422" class="Function Operator">̇</a>  <a id="1835" class="Symbol">→</a> <a id="1837" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="1839" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a>
+  <a id="1843" href="UF.Logic.html#1823" class="Function Operator">∥</a> <a id="1845" href="UF.Logic.html#1845" class="Bound">A</a> <a id="1847" href="UF.Logic.html#1823" class="Function Operator">∥Ω</a> <a id="1850" class="Symbol">=</a> <a id="1852" href="UF.PropTrunc.html#566" class="Field Operator">∥</a> <a id="1854" href="UF.Logic.html#1845" class="Bound">A</a> <a id="1856" href="UF.PropTrunc.html#566" class="Field Operator">∥</a> <a id="1858" href="MLTT.Sigma.html#423" class="InductiveConstructor Operator">,</a> <a id="1860" href="UF.PropTrunc.html#601" class="Field">∥∥-is-prop</a>
+
+<a id="1872" class="Markup">\end{code}</a><a id="1882" class="Background">
+
+\section{Existential quantification}
+
+</a><a id="1922" class="Markup">\begin{code}</a>
+
+<a id="1936" class="Keyword">module</a> <a id="Existential"></a><a id="1943" href="UF.Logic.html#1943" class="Module">Existential</a> <a id="1955" class="Symbol">(</a><a id="1956" href="UF.Logic.html#1956" class="Bound">pt</a> <a id="1959" class="Symbol">:</a> <a id="1961" href="UF.PropTrunc.html#514" class="Record">propositional-truncations-exist</a><a id="1992" class="Symbol">)</a> <a id="1994" class="Keyword">where</a>
+
+ <a id="2002" class="Keyword">open</a> <a id="2007" href="UF.Logic.html#1729" class="Module">Truncation</a> <a id="2018" href="UF.Logic.html#1956" class="Bound">pt</a>
+
+ <a id="Existential.∃[∶]-syntax"></a><a id="2023" href="UF.Logic.html#2023" class="Function">∃[∶]-syntax</a> <a id="2035" class="Symbol">:</a> <a id="2037" class="Symbol">(</a><a id="2038" href="UF.Logic.html#2038" class="Bound">I</a> <a id="2040" class="Symbol">:</a> <a id="2042" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="2044" href="MLTT.Universes.html#422" class="Function Operator">̇</a><a id="2045" class="Symbol">)</a> <a id="2047" class="Symbol">→</a> <a id="2049" class="Symbol">(</a><a id="2050" href="UF.Logic.html#2038" class="Bound">I</a> <a id="2052" class="Symbol">→</a> <a id="2054" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a> <a id="2056" href="MLTT.Universes.html#422" class="Function Operator">̇</a><a id="2057" class="Symbol">)</a> <a id="2059" class="Symbol">→</a> <a id="2061" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="2063" class="Symbol">(</a><a id="2064" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="2066" href="Agda.Primitive.html#810" class="Primitive Operator">⊔</a> <a id="2068" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a><a id="2069" class="Symbol">)</a>
+ <a id="2072" href="UF.Logic.html#2023" class="Function">∃[∶]-syntax</a> <a id="2084" href="UF.Logic.html#2084" class="Bound">I</a> <a id="2086" href="UF.Logic.html#2086" class="Bound">A</a> <a id="2088" class="Symbol">=</a> <a id="2090" href="UF.Logic.html#1823" class="Function Operator">∥</a> <a id="2092" href="MLTT.Sigma.html#451" class="Function">Σ</a> <a id="2094" href="UF.Logic.html#2094" class="Bound">i</a> <a id="2096" href="MLTT.Sigma.html#451" class="Function">꞉</a> <a id="2098" href="UF.Logic.html#2084" class="Bound">I</a> <a id="2100" href="MLTT.Sigma.html#451" class="Function">,</a> <a id="2102" href="UF.Logic.html#2086" class="Bound">A</a> <a id="2104" href="UF.Logic.html#2094" class="Bound">i</a> <a id="2106" href="UF.Logic.html#1823" class="Function Operator">∥Ω</a>
+
+ <a id="Existential.∃[]-syntax"></a><a id="2111" href="UF.Logic.html#2111" class="Function">∃[]-syntax</a> <a id="2122" class="Symbol">:</a> <a id="2124" class="Symbol">{</a><a id="2125" href="UF.Logic.html#2125" class="Bound">I</a> <a id="2127" class="Symbol">:</a> <a id="2129" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="2131" href="MLTT.Universes.html#422" class="Function Operator">̇</a><a id="2132" class="Symbol">}</a> <a id="2134" class="Symbol">→</a> <a id="2136" class="Symbol">(</a><a id="2137" href="UF.Logic.html#2125" class="Bound">I</a> <a id="2139" class="Symbol">→</a> <a id="2141" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a> <a id="2143" href="MLTT.Universes.html#422" class="Function Operator">̇</a><a id="2144" class="Symbol">)</a> <a id="2146" class="Symbol">→</a> <a id="2148" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="2150" class="Symbol">(</a><a id="2151" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="2153" href="Agda.Primitive.html#810" class="Primitive Operator">⊔</a> <a id="2155" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a><a id="2156" class="Symbol">)</a>
+ <a id="2159" href="UF.Logic.html#2111" class="Function">∃[]-syntax</a> <a id="2170" class="Symbol">{</a><a id="2171" class="Argument">I</a> <a id="2173" class="Symbol">=</a> <a id="2175" href="UF.Logic.html#2175" class="Bound">I</a><a id="2176" class="Symbol">}</a> <a id="2178" href="UF.Logic.html#2178" class="Bound">P</a> <a id="2180" class="Symbol">=</a> <a id="2182" href="UF.Logic.html#2023" class="Function">∃[∶]-syntax</a> <a id="2194" href="UF.Logic.html#2175" class="Bound">I</a> <a id="2196" href="UF.Logic.html#2178" class="Bound">P</a>
+
+ <a id="2200" class="Keyword">infixr</a> <a id="2207" class="Number">-1</a> <a id="2210" href="UF.Logic.html#2023" class="Function">∃[∶]-syntax</a>
+ <a id="2223" class="Keyword">infixr</a> <a id="2230" class="Number">-1</a> <a id="2233" href="UF.Logic.html#2111" class="Function">∃[]-syntax</a>
+
+ <a id="2246" class="Keyword">syntax</a> <a id="2253" href="UF.Logic.html#2023" class="Function">∃[∶]-syntax</a> <a id="2265" class="Bound">I</a> <a id="2267" class="Symbol">(λ</a> <a id="2270" class="Bound">i</a> <a id="2272" class="Symbol">→</a> <a id="2274" class="Bound">e</a><a id="2275" class="Symbol">)</a> <a id="2277" class="Symbol">=</a> <a id="2279" class="Function">Ǝ</a> <a id="2281" class="Bound">i</a> <a id="2283" class="Function">∶</a> <a id="2285" class="Bound">I</a> <a id="2287" class="Function">,</a> <a id="2289" class="Bound">e</a>
+ <a id="2292" class="Keyword">syntax</a> <a id="2299" href="UF.Logic.html#2111" class="Function">∃[]-syntax</a>    <a id="2313" class="Symbol">(λ</a> <a id="2316" class="Bound">i</a> <a id="2318" class="Symbol">→</a> <a id="2320" class="Bound">e</a><a id="2321" class="Symbol">)</a> <a id="2323" class="Symbol">=</a> <a id="2325" class="Function">Ǝ</a> <a id="2327" class="Bound">i</a> <a id="2329" class="Function">,</a> <a id="2331" class="Bound">e</a>
+
+<a id="2334" class="Markup">\end{code}</a><a id="2344" class="Background">
+
+\section{Negation of equality}
+
+</a><a id="2378" class="Markup">\begin{code}</a>
+
+<a id="2392" class="Keyword">module</a> <a id="Negation-of-equality"></a><a id="2399" href="UF.Logic.html#2399" class="Module">Negation-of-equality</a> <a id="2420" class="Symbol">(</a><a id="2421" href="UF.Logic.html#2421" class="Bound">fe</a> <a id="2424" class="Symbol">:</a> <a id="2426" href="UF.FunExt.html#1036" class="Function">Fun-Ext</a><a id="2433" class="Symbol">)</a> <a id="2435" class="Keyword">where</a>
+
+ <a id="Negation-of-equality._≢_"></a><a id="2443" href="UF.Logic.html#2443" class="Function Operator">_≢_</a> <a id="2447" class="Symbol">:</a> <a id="2449" class="Symbol">{</a><a id="2450" href="UF.Logic.html#2450" class="Bound">X</a> <a id="2452" class="Symbol">:</a> <a id="2454" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="2456" href="MLTT.Universes.html#422" class="Function Operator">̇</a> <a id="2458" class="Symbol">}</a> <a id="2460" class="Symbol">→</a> <a id="2462" href="UF.Logic.html#2450" class="Bound">X</a> <a id="2464" class="Symbol">→</a> <a id="2466" href="UF.Logic.html#2450" class="Bound">X</a> <a id="2468" class="Symbol">→</a> <a id="2470" href="UF.Subsingletons.html#18895" class="Function">Ω</a> <a id="2472" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a>
+ <a id="2475" href="UF.Logic.html#2475" class="Bound">x</a> <a id="2477" href="UF.Logic.html#2443" class="Function Operator">≢</a> <a id="2479" href="UF.Logic.html#2479" class="Bound">y</a> <a id="2481" class="Symbol">=</a> <a id="2483" class="Symbol">(</a><a id="2484" href="UF.Logic.html#2475" class="Bound">x</a> <a id="2486" href="MLTT.Negation.html#411" class="Function Operator">≠</a> <a id="2488" href="UF.Logic.html#2479" class="Bound">y</a><a id="2489" class="Symbol">)</a> <a id="2491" href="MLTT.Sigma.html#423" class="InductiveConstructor Operator">,</a> <a id="2493" href="UF.Subsingletons-FunExt.html#648" class="Function">Π-is-prop</a> <a id="2503" href="UF.Logic.html#2421" class="Bound">fe</a> <a id="2506" class="Symbol">(λ</a> <a id="2509" href="UF.Logic.html#2509" class="Bound">_</a> <a id="2511" class="Symbol">→</a> <a id="2513" href="UF.Subsingletons.html#2702" class="Function">𝟘-is-prop</a><a id="2522" class="Symbol">)</a>
+
+<a id="2525" class="Markup">\end{code}</a><a id="2535" class="Background">
+
+\section{A module for importing all combinators}
+
+</a><a id="2587" class="Markup">\begin{code}</a>
+
+<a id="2601" class="Keyword">module</a> <a id="AllCombinators"></a><a id="2608" href="UF.Logic.html#2608" class="Module">AllCombinators</a>
+        <a id="2631" class="Symbol">(</a><a id="2632" href="UF.Logic.html#2632" class="Bound">pt</a> <a id="2635" class="Symbol">:</a> <a id="2637" href="UF.PropTrunc.html#514" class="Record">propositional-truncations-exist</a><a id="2668" class="Symbol">)</a>
+        <a id="2678" class="Symbol">(</a><a id="2679" href="UF.Logic.html#2679" class="Bound">fe</a> <a id="2682" class="Symbol">:</a> <a id="2684" href="UF.FunExt.html#1036" class="Function">Fun-Ext</a><a id="2691" class="Symbol">)</a>
+       <a id="2700" class="Keyword">where</a>
+
+ <a id="2708" class="Keyword">open</a> <a id="2713" href="UF.Logic.html#403" class="Module">Conjunction</a>             <a id="2737" class="Keyword">public</a>
+ <a id="2745" class="Keyword">open</a> <a id="2750" href="UF.Logic.html#630" class="Module">Universal</a>            <a id="2771" href="UF.Logic.html#2679" class="Bound">fe</a> <a id="2774" class="Keyword">public</a>
+ <a id="2782" class="Keyword">open</a> <a id="2787" href="UF.Logic.html#1123" class="Module">Implication</a>          <a id="2808" href="UF.Logic.html#2679" class="Bound">fe</a> <a id="2811" class="Keyword">public</a>
+ <a id="2819" class="Keyword">open</a> <a id="2824" href="UF.Logic.html#1487" class="Module">Disjunction</a>          <a id="2845" href="UF.Logic.html#2632" class="Bound">pt</a> <a id="2848" class="Keyword">public</a>
+ <a id="2856" class="Keyword">open</a> <a id="2861" href="UF.Logic.html#1943" class="Module">Existential</a>          <a id="2882" href="UF.Logic.html#2632" class="Bound">pt</a> <a id="2885" class="Keyword">public</a>
+ <a id="2893" class="Keyword">open</a> <a id="2898" href="UF.Logic.html#1729" class="Module">Truncation</a>           <a id="2919" href="UF.Logic.html#2632" class="Bound">pt</a> <a id="2922" class="Keyword">public</a>
+ <a id="2930" class="Keyword">open</a> <a id="2935" href="UF.Logic.html#2399" class="Module">Negation-of-equality</a> <a id="2956" href="UF.Logic.html#2679" class="Bound">fe</a> <a id="2959" class="Keyword">public</a>
+
+<a id="2967" class="Markup">\end{code}</a><a id="2977" class="Background">
+</a></pre></body></html>

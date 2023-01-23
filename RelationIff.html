@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><title>RelationIff</title><link rel="stylesheet" href="Agda.css"></head><body><pre class="Agda"><a id="1" class="Comment">----------------------------------------------------------------------------------------------------</a>
+<a id="102" class="Comment">-- The &quot;if-and-only-if&quot; relation</a>
+<a id="135" class="Comment">----------------------------------------------------------------------------------------------------</a>
+
+<a id="237" class="Symbol">{-#</a> <a id="241" class="Keyword">OPTIONS</a> <a id="249" class="Pragma">--safe</a> <a id="256" class="Symbol">#-}</a>
+
+<a id="261" class="Keyword">module</a> <a id="268" href="RelationIff.html" class="Module">RelationIff</a> <a id="280" class="Keyword">where</a>
+
+<a id="287" class="Keyword">open</a> <a id="292" class="Keyword">import</a> <a id="299" href="MLTT.Universes.html" class="Module">MLTT.Universes</a>
+<a id="314" class="Keyword">open</a> <a id="319" class="Keyword">import</a> <a id="326" href="MLTT.Sigma.html" class="Module">MLTT.Sigma</a> <a id="337" class="Keyword">using</a> <a id="343" class="Symbol">(</a><a id="344" href="MLTT.Sigma.html#586" class="Function Operator">_×_</a><a id="347" class="Symbol">)</a>
+
+<a id="_↔_"></a><a id="350" href="RelationIff.html#350" class="Function Operator">_↔_</a> <a id="354" class="Symbol">:</a> <a id="356" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="358" href="MLTT.Universes.html#422" class="Function Operator">̇</a> <a id="360" class="Symbol">→</a> <a id="362" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a> <a id="364" href="MLTT.Universes.html#422" class="Function Operator">̇</a> <a id="366" class="Symbol">→</a> <a id="368" href="MLTT.Universes.html#279" class="Generalizable">𝓤</a> <a id="370" href="Agda.Primitive.html#810" class="Primitive Operator">⊔</a> <a id="372" href="MLTT.Universes.html#281" class="Generalizable">𝓥</a> <a id="374" href="MLTT.Universes.html#422" class="Function Operator">̇</a>
+<a id="376" href="RelationIff.html#376" class="Bound">A</a> <a id="378" href="RelationIff.html#350" class="Function Operator">↔</a> <a id="380" href="RelationIff.html#380" class="Bound">B</a> <a id="382" class="Symbol">=</a> <a id="384" class="Symbol">(</a><a id="385" href="RelationIff.html#376" class="Bound">A</a> <a id="387" class="Symbol">→</a> <a id="389" href="RelationIff.html#380" class="Bound">B</a><a id="390" class="Symbol">)</a> <a id="392" href="MLTT.Sigma.html#586" class="Function Operator">×</a> <a id="394" class="Symbol">(</a><a id="395" href="RelationIff.html#380" class="Bound">B</a> <a id="397" class="Symbol">→</a> <a id="399" href="RelationIff.html#376" class="Bound">A</a><a id="400" class="Symbol">)</a>
+
+<a id="403" class="Keyword">infix</a>   <a id="411" class="Number">2</a> <a id="413" href="RelationIff.html#350" class="Function Operator">_↔_</a>
+
+</pre></body></html>
